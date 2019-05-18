@@ -1,0 +1,15 @@
+{
+  "name": "diff-html",
+  "version": "1.0.0",
+  "description": "Gives the image diff percentage of two HTML strings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Austin Dudas",
+  "license": "ISC",
+  "dependencies": {
+    "image-diffr": "^1.2.1",
+    "puppeteer": "^1.16.0"
+  }
+}
