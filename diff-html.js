@@ -11,7 +11,7 @@ const imageDiffr = require('image-diffr');
  *    width: number,
  *    height: number,
  * }
- * @returns Promise<null>
+ * @returns Promise<void>
  */
 async function generateImagesFromHtml(contents, viewport) {
   // Set up puppeteer launch options
@@ -40,7 +40,7 @@ async function generateImagesFromHtml(contents, viewport) {
  *    width: number,
  *    height: number,
  * }
- * @returns Promise<null>
+ * @returns Promise<void>
  */
 async function generateImageFromHtml(html, filename, viewport) {
   return await generateImagesFromHtml([{
@@ -52,9 +52,13 @@ async function generateImageFromHtml(html, filename, viewport) {
 /*
  * @param inputHtml: string
  * @param correctHtml: string
+ * @param? viewport: {
+ *    width: number,
+ *    height: number,
+ * }
  * @returns number
  */
-async function diffHtml(inputHtml, correctHtml) {
+async function diffHtml(inputHtml, correctHtml, viewport) {
   // Create temporary directory and paths
   const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), 'diffhtml-'));
   const f1 = path.join(tmpdir, '1.png');
@@ -65,7 +69,7 @@ async function diffHtml(inputHtml, correctHtml) {
     { html: inputHtml, filename: f1 },
     { html: correctHtml, filename: f2 },
   ];
-  await generateImagesFromHtml(contents);
+  await generateImagesFromHtml(contents, viewport);
 
   // Diff images
   const {percent: diff} = await imageDiffr.exec(f1, f2);
